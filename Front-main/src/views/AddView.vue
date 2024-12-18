@@ -278,16 +278,21 @@ export default {
 
 
 
-<style scoped>
 
-/* Modal Styles */
+<style scoped>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #a878b8;
+  color: #f5f5f5;
+}
+
 .modal-container {
   position: fixed;
   top: 0;
-  right: 0;
-  width: 70vw;
+  left: 0;
+  width: 100vw;
   height: 100vh;
-  background: rgba(146, 144, 148, 0.5); /* Fond semi-transparent */
+  background: rgba(146, 144, 148, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -298,14 +303,22 @@ export default {
   background-color: #ffffff;
   padding: 40px;
   border-radius: 10px;
-  width: 100%;
+  width: 90%;
   max-width: 900px;
   position: relative;
-  box-shadow: 0 4px 10px rgba(184, 58, 196, 0.717);
-  color: #4f195f;
+  box-shadow: 0 4px 10px rgba(169, 86, 177, 0.717);
+  color: #240046; 
   overflow-y: auto;
-  height: auto;
 }
+
+.sidebar-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #9b59b6;
+}
+
+
 
 h2.form-title {
   margin-bottom: 20px;
@@ -321,7 +334,6 @@ h2.form-title {
   display: block;
   font-size: 16px;
   margin-bottom: 5px;
-  color: #4f195f;
 }
 
 .input-group input {
@@ -329,36 +341,63 @@ h2.form-title {
   padding: 10px;
   font-size: 16px;
   border-radius: 5px;
-  border: 1px solid #000000;
-  background: #ffffff;
-  color: #000000;
+  border: 1px solid #ddd;
 }
 
+.input-group .error {
+  color: #e74c3c;
+  font-size: 14px;
+}
+
+ 
 .categories {
   display: flex;
-  justify-content: space-around;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px; 
 }
 
 .category-item {
-  color: #512e5f;
   padding: 10px;
   cursor: pointer;
   border-radius: 5px;
   transition: background-color 0.3s;
+  flex: 1 1 calc(33.33% - 10px); 
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  box-sizing: border-box;
+}
+
+.category-item i { 
+  font-size: 24px; 
+  margin-right: 5px; 
 }
 
 .category-item:hover {
-  background-color: #ae8ab8;
+  background-color: #C77DFF;
 }
 
 .category-item.selected {
-  background-color: #aa77be;
+  background-color: #9b59b6;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .category-item {
+    flex: 1 1 calc(50% - 10px);
+  }
+}
+
+@media (max-width: 480px) {
+  .category-item {
+    flex: 1 1 100%; 
+  }
 }
 
 .importance-levels {
   display: flex;
   justify-content: space-around;
-  color: #4f195f;
 }
 
 .importance-level {
@@ -368,32 +407,27 @@ h2.form-title {
   transition: background-color 0.3s;
 }
 
-.importance-level:hover {
-  background-color: #ae8ab8;
-}
-
 .importance-level.selected {
   background-color: #9b59b6;
 }
 
-.progress {
-  background-color: #e74c3c;
-  width: 50%;
+.progress-bar {
+  background-color: #ddd;
+  height: 10px;
+  width: 100%;
   border-radius: 5px;
-  transition: width 0.3s ease, background-color 0.3s ease;
 }
 
-.progress.low {
-  background-color: #f1c40f; /* Yellow */
+.progress {
+  height: 100%;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+  font-weight: bold;
 }
 
-.progress.medium {
-  background-color: #2ecc71; /* Green */
-}
 
-.progress.high {
-  background-color: #e74c3c; /* Red */
-}
 
 .progress-bar {
   background-color: #ddd;
@@ -428,30 +462,30 @@ h2.form-title {
   color: white;
   transition: transform 0.2s ease;
 }
-
-.btn-cancel:hover {
-  background-color: #971c0f;
+.btn-cancel:hover{
+  background-color: #ee7f72;
+  transform: translateY(-3px) scale(1.05);
+}
+.btn-cancel:active{
+  background-color: hsl(6, 78%, 9%);
   transform: translateY(-3px) scale(1.05);
 }
 
-.btn-cancel:active {
-  background-color: hsl(6, 78%, 9%);
-}
-
 .btn-add {
-  background-color: #9b59b6;
+  background-color: #240046;
   color: white;
   transition: transform 0.2s ease;
 }
 
-.btn-add:hover {
-  background-color: #5f2b74;
+.btn-add:hover{
+  background-color: #b786ca;
   transform: translateY(-3px) scale(1.05);
 }
-
-.btn-add:active {
+.btn-add:active{
   background-color: hsl(283, 39%, 76%);
 }
+
+
 
 .popup-overlay {
   position: fixed;
@@ -459,7 +493,7 @@ h2.form-title {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5);  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -467,16 +501,15 @@ h2.form-title {
 }
 
 .popup-content {
-  background: white;
-  padding: 15px;
+  background: #10002B;
+  padding: 15px;  
   border-radius: 8px;
   text-align: center;
-  width: 70%;
-  max-width: 600px;
+  width: 70%;  
+  max-width: 600px;  
   box-sizing: border-box;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);  
 }
-
 .popup-actions {
   display: flex;
   justify-content: space-between;
@@ -486,7 +519,7 @@ h2.form-title {
 
 .popup-actions .btn {
   display: inline-block;
-  padding: 10px 25px;
+  padding: 10px 25px;  
   border-radius: 15px;
   font-size: 16px;
   white-space: nowrap;
@@ -495,12 +528,20 @@ h2.form-title {
 }
 
 .see {
-  background: #a67ab3;
+  background: #E0AAFF;
   transition: transform 0.2s ease;
 }
 
 .see:hover {
   background: hsl(287, 26%, 69%);
+  transform: translateY(-3px) scale(1.05);
+}
+
+.btn-secondary{
+  transition: transform 0.2s ease;
+}
+
+.btn-secondary:hover{
   transform: translateY(-3px) scale(1.05);
 }
 
@@ -515,16 +556,57 @@ h2.form-title {
   transform: scale(0.7);
 }
 
-/* Responsive Styling */
 @media (max-width: 768px) {
-  .modal-container {
-    width: 80vw;
+  .modal-content {
+    padding: 20px;
+    margin-left: auto; /* Enlève l'espace à gauche */
+    margin-right: 0; /* Colle vers la droite */
+  }
+
+  h2.form-title {
+    font-size: 24px;
+  }
+
+  .category-item,
+  .importance-level {
+    flex: 1 1 calc(50% - 10px); 
+  }
+
+  .button-group {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .btn {
+    width: 100%;
   }
 }
 
 @media (max-width: 480px) {
-  .modal-container {
-    width: 90vw;
+  .modal-content {
+    width: calc(100% - 20px); 
+    margin-right: 0;
+    padding: 20px;
+  }
+
+  h2.form-title {
+    font-size: 20px;
+  }
+
+  .input-group label {
+    font-size: 14px;
+  }
+
+  .input-group input {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+
+  .btn {
+    font-size: 14px;
+    padding: 8px;
   }
 }
+
 </style>
